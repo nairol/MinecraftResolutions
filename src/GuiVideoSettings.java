@@ -5,6 +5,9 @@
 package net.minecraft.src;
 
 import java.awt.Frame;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.List;
 
 import org.lwjgl.opengl.Display;
@@ -45,8 +48,9 @@ public class GuiVideoSettings extends GuiScreen
             i++;
         }
 
-        controlList.add(new GuiSmallButton(101, width / 2 - 155, height / 6 + 24 * 5, "1280x720"));
-        controlList.add(new GuiSmallButton(102, width / 2 - 155 + 160, height / 6 + 24 * 5, "1920x1080"));
+        controlList.add(new GuiSmallButton(101, width / 2 - 155, height / 6 + 24 * 5, 75, 20, "1280x720"));
+        controlList.add(new GuiSmallButton(102, width / 2 - 155 + 76, height / 6 + 24 * 5, 75, 20, "1920x1080"));
+        controlList.add(new GuiSmallButton(103, width / 2 - 155 + 160, height / 6 + 24 * 5, "Current size as default"));
         controlList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, stringtranslate.translateKey("gui.done")));
     }
 
@@ -74,7 +78,10 @@ public class GuiVideoSettings extends GuiScreen
         {
         	setInnerSize(1920, 1080);
         }
-        
+        if(guibutton.id == 103)
+        {
+        	setDefaultResolution();
+        }
         ScaledResolution scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
         int i = scaledresolution.getScaledWidth();
         int j = scaledresolution.getScaledHeight();
@@ -96,7 +103,7 @@ public class GuiVideoSettings extends GuiScreen
         super.drawScreen(i, j, f);
     }
     
-    private void setInnerSize( int width, int height )
+    public static void setInnerSize( int width, int height )
     {
     	Frame c = java.awt.Frame.getFrames()[0];
     	int iw = c.getInsets().left + c.getInsets().right;
@@ -111,18 +118,38 @@ public class GuiVideoSettings extends GuiScreen
     	c.setLocationRelativeTo(null);
     }
     
-    private int getInnerWidth()
+    public static int getInnerWidth()
     {
     	Frame c = java.awt.Frame.getFrames()[0];
     	int iw = c.getInsets().left + c.getInsets().right;
     	return c.getSize().width - iw;
     }
     
-    private int getInnerHeight()
+    public static int getInnerHeight()
     {
     	Frame c = java.awt.Frame.getFrames()[0];
     	int ih = c.getInsets().top + c.getInsets().bottom;
     	return c.getSize().height - ih;
+    }
+    
+    public static void setDefaultResolution()
+    {
+    	File mcResConfig = new File(Minecraft.getMinecraftDir(), "mcResConfig.txt");
+    	try
+        {
+    		Frame c = java.awt.Frame.getFrames()[0];
+            PrintWriter printwriter = new PrintWriter(new FileWriter(mcResConfig));
+            printwriter.println((new StringBuilder()).append("width:").append(getInnerWidth()).toString());
+            printwriter.println((new StringBuilder()).append("height:").append(getInnerHeight()).toString());
+            int maximized = c.getExtendedState() == Frame.MAXIMIZED_BOTH ? 1 : 0;
+            printwriter.println((new StringBuilder()).append("maximized:").append(maximized).toString());
+            printwriter.close();
+        }
+        catch(Exception exception)
+        {
+            System.out.println("MinecraftResize: Failed to save screen resolution");
+            exception.printStackTrace();
+        }
     }
 
     private GuiScreen field_22110_h;
