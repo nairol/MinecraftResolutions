@@ -91,6 +91,11 @@ public class MinecraftAppletImpl extends Minecraft
 	    		c.setExtendedState(Frame.MAXIMIZED_BOTH);
 	    	}
 	    }
+	    else
+	    {
+	    	width = 854;
+	    	height = 480;
+	    }
     }
 
     public void displayUnexpectedThrowable(UnexpectedThrowable unexpectedthrowable)
