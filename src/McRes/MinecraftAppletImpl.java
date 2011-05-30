@@ -23,7 +23,7 @@ public class MinecraftAppletImpl extends Minecraft
         super(component, canvas, minecraftapplet1, getDefaultWidth(), getDefaultHeight(), flag);
         mainFrame = minecraftapplet;
     }
-    
+
     private static int getDefaultWidth()
     {
     	if(width == 0) loadDefaultResolution();
@@ -98,6 +98,7 @@ public class MinecraftAppletImpl extends Minecraft
 	    }
     }
 
+    
     public void displayUnexpectedThrowable(UnexpectedThrowable unexpectedthrowable)
     {
         mainFrame.removeAll();
@@ -108,4 +109,5 @@ public class MinecraftAppletImpl extends Minecraft
 
     final MinecraftApplet mainFrame; /* synthetic field */
     static int width = 0, height = 0, maximized = 0;
+
 }

@@ -15,8 +15,8 @@ import org.lwjgl.opengl.Display;
 import net.minecraft.client.Minecraft;
 
 // Referenced classes of package net.minecraft.src:
-//            GuiScreen, EnumOptions, GuiButton, GameSettings, 
-//            StringTranslate, ScaledResolution, GuiSlider, GuiSmallButton
+//            GuiScreen, GuiSmallButton, EnumOptions, GuiButton, 
+//            GameSettings, StringTranslate, ScaledResolution, GuiSlider
 
 public class GuiVideoSettings extends GuiScreen
 {
@@ -47,7 +47,7 @@ public class GuiVideoSettings extends GuiScreen
             }
             i++;
         }
-
+        
         controlList.add(new GuiSmallButton(101, width / 2 - 155, height / 6 + 24 * 5, 75, 20, "1280x720"));
         controlList.add(new GuiSmallButton(102, width / 2 - 155 + 76, height / 6 + 24 * 5, 75, 20, "1920x1080"));
         controlList.add(new GuiSmallButton(103, width / 2 - 155 + 160, height / 6 + 24 * 5, "Current size as default"));
@@ -102,7 +102,7 @@ public class GuiVideoSettings extends GuiScreen
         
         super.drawScreen(i, j, f);
     }
-    
+
     public static void setInnerSize( int width, int height )
     {
     	Frame c = java.awt.Frame.getFrames()[0];
@@ -152,6 +152,7 @@ public class GuiVideoSettings extends GuiScreen
         }
     }
 
+    
     private GuiScreen field_22110_h;
     protected String field_22107_a;
     private GameSettings field_22109_i;
