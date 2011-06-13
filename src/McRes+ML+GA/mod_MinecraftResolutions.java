@@ -38,7 +38,7 @@ public class mod_MinecraftResolutions extends BaseMod
 	}
 	
 	public String Version() {
-		return "1.6.4";
+		return "1.6.6";
 	}
 	
 	public void OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
