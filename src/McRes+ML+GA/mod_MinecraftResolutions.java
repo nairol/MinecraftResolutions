@@ -41,7 +41,7 @@ public class mod_MinecraftResolutions extends BaseMod
 		return "1.6.6";
 	}
 	
-	public void OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
+	public boolean OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
 		if(GuiModScreen.currentscreen != null && GuiModScreen.currentscreen.mainwidget == mss.thewidget)
 		{
 			if( f.getExtendedState() == Frame.MAXIMIZED_BOTH )
@@ -54,6 +54,7 @@ public class mod_MinecraftResolutions extends BaseMod
 			setVideoSize((Integer)siw.get(), (Integer)sih.get(), (Boolean)sbm.get());
 			sizeRestored = true;
 		}
+		return true;
 	}
 	
 	private void initGui()

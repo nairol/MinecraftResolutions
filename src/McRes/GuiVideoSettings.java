@@ -15,8 +15,8 @@ import org.lwjgl.opengl.Display;
 import net.minecraft.client.Minecraft;
 
 // Referenced classes of package net.minecraft.src:
-//            GuiScreen, GuiSmallButton, EnumOptions, GuiButton, 
-//            GameSettings, StringTranslate, ScaledResolution, GuiSlider
+//            GuiScreen, StringTranslate, EnumOptions, GuiSmallButton, 
+//            GameSettings, GuiSlider, GuiButton, ScaledResolution
 
 public class GuiVideoSettings extends GuiScreen
 {
@@ -25,7 +25,7 @@ public class GuiVideoSettings extends GuiScreen
     {
         field_22107_a = "Video Settings";
         field_22110_h = guiscreen;
-        field_22109_i = gamesettings;
+        guiGameSettings = gamesettings;
     }
 
     public void initGui()
@@ -40,10 +40,10 @@ public class GuiVideoSettings extends GuiScreen
             EnumOptions enumoptions = aenumoptions[k];
             if(!enumoptions.getEnumFloat())
             {
-                controlList.add(new GuiSmallButton(enumoptions.returnEnumOrdinal(), (width / 2 - 155) + (i % 2) * 160, height / 6 + 24 * (i >> 1), enumoptions, field_22109_i.getKeyBinding(enumoptions)));
+                controlList.add(new GuiSmallButton(enumoptions.returnEnumOrdinal(), (width / 2 - 155) + (i % 2) * 160, height / 6 + 24 * (i >> 1), enumoptions, guiGameSettings.getKeyBinding(enumoptions)));
             } else
             {
-                controlList.add(new GuiSlider(enumoptions.returnEnumOrdinal(), (width / 2 - 155) + (i % 2) * 160, height / 6 + 24 * (i >> 1), enumoptions, field_22109_i.getKeyBinding(enumoptions), field_22109_i.getOptionFloatValue(enumoptions)));
+                controlList.add(new GuiSlider(enumoptions.returnEnumOrdinal(), (width / 2 - 155) + (i % 2) * 160, height / 6 + 24 * (i >> 1), enumoptions, guiGameSettings.getKeyBinding(enumoptions), guiGameSettings.getOptionFloatValue(enumoptions)));
             }
             i++;
         }
@@ -62,8 +62,8 @@ public class GuiVideoSettings extends GuiScreen
         }
         if(guibutton.id < 100 && (guibutton instanceof GuiSmallButton))
         {
-            field_22109_i.setOptionValue(((GuiSmallButton)guibutton).returnEnumOptions(), 1);
-            guibutton.displayString = field_22109_i.getKeyBinding(EnumOptions.getEnumOptions(guibutton.id));
+            guiGameSettings.setOptionValue(((GuiSmallButton)guibutton).returnEnumOptions(), 1);
+            guibutton.displayString = guiGameSettings.getKeyBinding(EnumOptions.getEnumOptions(guibutton.id));
         }
         if(guibutton.id == 200)
         {
@@ -155,13 +155,13 @@ public class GuiVideoSettings extends GuiScreen
     
     private GuiScreen field_22110_h;
     protected String field_22107_a;
-    private GameSettings field_22109_i;
+    private GameSettings guiGameSettings;
     private static EnumOptions field_22108_k[];
 
     static 
     {
         field_22108_k = (new EnumOptions[] {
-            EnumOptions.GRAPHICS, EnumOptions.RENDER_DISTANCE, EnumOptions.LIMIT_FRAMERATE, EnumOptions.ANAGLYPH, EnumOptions.VIEW_BOBBING, EnumOptions.AMBIENT_OCCLUSION, EnumOptions.GUI_SCALE, EnumOptions.ADVANCED_OPENGL
+            EnumOptions.GRAPHICS, EnumOptions.RENDER_DISTANCE, EnumOptions.AMBIENT_OCCLUSION, EnumOptions.FRAMERATE_LIMIT, EnumOptions.ANAGLYPH, EnumOptions.VIEW_BOBBING, EnumOptions.GUI_SCALE, EnumOptions.ADVANCED_OPENGL
         });
     }
 }
