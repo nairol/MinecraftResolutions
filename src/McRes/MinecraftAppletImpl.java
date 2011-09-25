@@ -5,10 +5,11 @@
 package net.minecraft.src;
 
 import java.awt.*;
+/* MC RESOLUTIONS ---> */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-
+/* <--- MC RESOLUTIONS */
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MinecraftApplet;
 
@@ -20,10 +21,13 @@ public class MinecraftAppletImpl extends Minecraft
 
     public MinecraftAppletImpl(MinecraftApplet minecraftapplet, Component component, Canvas canvas, MinecraftApplet minecraftapplet1, int i, int j, boolean flag)
     {
+        /* MC RESOLUTIONS ---> */
         super(component, canvas, minecraftapplet1, getDefaultWidth(), getDefaultHeight(), flag);
+        /* <--- MC RESOLUTIONS */
         mainFrame = minecraftapplet;
     }
 
+    /* MC RESOLUTIONS ---> */
     private static int getDefaultWidth()
     {
     	if(width == 0) loadDefaultResolution();
@@ -97,7 +101,7 @@ public class MinecraftAppletImpl extends Minecraft
 	    	height = 480;
 	    }
     }
-
+    /* <--- MC RESOLUTIONS */
     
     public void displayUnexpectedThrowable(UnexpectedThrowable unexpectedthrowable)
     {
@@ -108,6 +112,7 @@ public class MinecraftAppletImpl extends Minecraft
     }
 
     final MinecraftApplet mainFrame; /* synthetic field */
+    /* MC RESOLUTIONS ---> */
     static int width = 0, height = 0, maximized = 0;
-
+    /* <--- MC RESOLUTIONS */
 }

@@ -38,11 +38,11 @@ public class mod_MinecraftResolutions extends BaseMod
 	}
 	
 	public String Version() {
-		return "1.6.6";
+		return "1.8.1";
 	}
 	
 	public boolean OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
-		if(GuiModScreen.currentscreen != null && GuiModScreen.currentscreen.mainwidget == mss.thewidget)
+		if(GuiModScreen.currentScreen != null && GuiModScreen.currentScreen.mainwidget == mss.theWidget)
 		{
 			if( f.getExtendedState() == Frame.MAXIMIZED_BOTH )
 				lSize.setText("Current size: maximized");
@@ -101,13 +101,13 @@ public class mod_MinecraftResolutions extends BaseMod
 		GuiModScreen.clicksound();
 		if( f.getExtendedState() == Frame.MAXIMIZED_BOTH)
 		{
-			sbm.set(true, ModSettingScreen.guicontext);
+			sbm.set(true, ModSettingScreen.guiContext);
 		}
 		else
 		{
-			siw.set(getVideoWidth(), ModSettingScreen.guicontext);
-			sih.set(getVideoHeight(), ModSettingScreen.guicontext);
-			sbm.set(false, ModSettingScreen.guicontext);
+			siw.set(getVideoWidth(), ModSettingScreen.guiContext);
+			sih.set(getVideoHeight(), ModSettingScreen.guiContext);
+			sbm.set(false, ModSettingScreen.guiContext);
 		}
 		updateDefaultLabel();
 	}

@@ -4,13 +4,18 @@
 
 package net.minecraft.src;
 
+/* MC RESOLUTIONS ---> */
 import java.awt.Frame;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+/* <--- MC RESOLUTIONS */
+
 import java.util.List;
 
+/* MC RESOLUTIONS ---> */
 import org.lwjgl.opengl.Display;
+/* <--- MC RESOLUTIONS */
 
 import net.minecraft.client.Minecraft;
 
@@ -24,7 +29,7 @@ public class GuiVideoSettings extends GuiScreen
     public GuiVideoSettings(GuiScreen guiscreen, GameSettings gamesettings)
     {
         field_22107_a = "Video Settings";
-        field_22110_h = guiscreen;
+        parentGuiScreen = guiscreen;
         guiGameSettings = gamesettings;
     }
 
@@ -33,7 +38,7 @@ public class GuiVideoSettings extends GuiScreen
         StringTranslate stringtranslate = StringTranslate.getInstance();
         field_22107_a = stringtranslate.translateKey("options.videoTitle");
         int i = 0;
-        EnumOptions aenumoptions[] = field_22108_k;
+        EnumOptions aenumoptions[] = videoOptions;
         int j = aenumoptions.length;
         for(int k = 0; k < j; k++)
         {
@@ -47,10 +52,11 @@ public class GuiVideoSettings extends GuiScreen
             }
             i++;
         }
-        
-        controlList.add(new GuiSmallButton(101, width / 2 - 155, height / 6 + 24 * 5, 75, 20, "1280x720"));
-        controlList.add(new GuiSmallButton(102, width / 2 - 155 + 76, height / 6 + 24 * 5, 75, 20, "1920x1080"));
-        controlList.add(new GuiSmallButton(103, width / 2 - 155 + 160, height / 6 + 24 * 5, "Current size as default"));
+        /* MC RESOLUTIONS ---> */
+        controlList.add(new GuiSmallButton(101, width / 2 - 155, height / 6 + 24 * 6, 75, 20, "1280x720"));
+        controlList.add(new GuiSmallButton(102, width / 2 - 155 + 76, height / 6 + 24 * 6, 75, 20, "1920x1080"));
+        controlList.add(new GuiSmallButton(103, width / 2 - 155 + 160, height / 6 + 24 * 6, "Current size as default"));
+        /* <--- MC RESOLUTIONS */
         controlList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, stringtranslate.translateKey("gui.done")));
     }
 
@@ -60,6 +66,7 @@ public class GuiVideoSettings extends GuiScreen
         {
             return;
         }
+        int i = guiGameSettings.guiScale;
         if(guibutton.id < 100 && (guibutton instanceof GuiSmallButton))
         {
             guiGameSettings.setOptionValue(((GuiSmallButton)guibutton).returnEnumOptions(), 1);
@@ -68,8 +75,10 @@ public class GuiVideoSettings extends GuiScreen
         if(guibutton.id == 200)
         {
             mc.gameSettings.saveOptions();
-            mc.displayGuiScreen(field_22110_h);
+            mc.displayGuiScreen(parentGuiScreen);
         }
+        
+        /* MC RESOLUTIONS ---> */
         if(guibutton.id == 101)
         {
         	setInnerSize(1280, 720);
@@ -82,27 +91,33 @@ public class GuiVideoSettings extends GuiScreen
         {
         	setDefaultResolution();
         }
-        ScaledResolution scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        int i = scaledresolution.getScaledWidth();
-        int j = scaledresolution.getScaledHeight();
-        setWorldAndResolution(mc, i, j);
+        /* <--- MC RESOLUTIONS */
+        
+        if(guiGameSettings.guiScale != i)
+        {
+            ScaledResolution scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+            int j = scaledresolution.getScaledWidth();
+            int k = scaledresolution.getScaledHeight();
+            setWorldAndResolution(mc, j, k);
+        }
     }
 
     public void drawScreen(int i, int j, float f)
     {
         drawDefaultBackground();
         drawCenteredString(fontRenderer, field_22107_a, width / 2, 20, 0xffffff);
-        
+        /* MC RESOLUTIONS ---> */
         String res;
         if(Display.isFullscreen() == false)
         	res = String.format("Video size: %dx%d", getInnerWidth(), getInnerHeight());
         else
         	res = String.format("Video size: %dx%d", Display.getDisplayMode().getWidth(), Display.getDisplayMode().getHeight());
-        drawCenteredString(fontRenderer, res, width / 2, height / 6 + 24 * 4 + 10, 0xffffff);
-        
+        drawCenteredString(fontRenderer, res, width / 2, height / 6 + 24 * 5 + 10, 0xffffff);
+        /* <--- MC RESOLUTIONS */
         super.drawScreen(i, j, f);
     }
 
+    /* MC RESOLUTIONS ---> */
     public static void setInnerSize( int width, int height )
     {
     	Frame c = java.awt.Frame.getFrames()[0];
@@ -151,17 +166,17 @@ public class GuiVideoSettings extends GuiScreen
             exception.printStackTrace();
         }
     }
-
+    /* <--- MC RESOLUTIONS */
     
-    private GuiScreen field_22110_h;
+    private GuiScreen parentGuiScreen;
     protected String field_22107_a;
     private GameSettings guiGameSettings;
-    private static EnumOptions field_22108_k[];
+    private static EnumOptions videoOptions[];
 
     static 
     {
-        field_22108_k = (new EnumOptions[] {
-            EnumOptions.GRAPHICS, EnumOptions.RENDER_DISTANCE, EnumOptions.AMBIENT_OCCLUSION, EnumOptions.FRAMERATE_LIMIT, EnumOptions.ANAGLYPH, EnumOptions.VIEW_BOBBING, EnumOptions.GUI_SCALE, EnumOptions.ADVANCED_OPENGL
+        videoOptions = (new EnumOptions[] {
+            EnumOptions.GRAPHICS, EnumOptions.RENDER_DISTANCE, EnumOptions.AMBIENT_OCCLUSION, EnumOptions.FRAMERATE_LIMIT, EnumOptions.ANAGLYPH, EnumOptions.VIEW_BOBBING, EnumOptions.GUI_SCALE, EnumOptions.ADVANCED_OPENGL, EnumOptions.GAMMA
         });
     }
 }
