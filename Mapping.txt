@@ -1,2 +1,2 @@
-> Outputted net/minecraft/src/MinecraftAppletImpl to reobf/minecraft as l.class
-> Outputted net/minecraft/src/GuiVideoSettings  to reobf/minecraft as ho.class
+> Outputted net/minecraft/src/GuiVideoSettings  to reobf/minecraft as cc.class
+> Outputted net/minecraft/src/MinecraftAppletImpl to reobf/minecraft as nm.class

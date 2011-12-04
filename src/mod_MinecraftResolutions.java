@@ -37,11 +37,11 @@ public class mod_MinecraftResolutions extends BaseMod
 		ModLoader.SetInGUIHook(this, true, false);
 	}
 	
-	public String Version() {
-		return "1.8.1";
+	public String getVersion() {
+		return "1.0.0";
 	}
 	
-	public boolean OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
+	public boolean OnTickInGUI(float a, Minecraft minecraft, GuiScreen guiscreen) {
 		if(GuiModScreen.currentScreen != null && GuiModScreen.currentScreen.mainwidget == mss.theWidget)
 		{
 			if( f.getExtendedState() == Frame.MAXIMIZED_BOTH )
@@ -68,9 +68,9 @@ public class mod_MinecraftResolutions extends BaseMod
 		mss.append(b720);
 		mss.append(b1080);
 		updateDefaultLabel();
-		sbmDefault.addActionCallback(new ModAction(this, "setDefault", null));
-		sbm720.addActionCallback(new ModAction(this, "set720", null));
-		sbm1080.addActionCallback(new ModAction(this, "set1080", null));
+		sbmDefault.addActionCallback(new ModAction(this, "setDefault"));
+		sbm720.addActionCallback(new ModAction(this, "set720"));
+		sbm1080.addActionCallback(new ModAction(this, "set1080"));
 		bDefault.setText("Current settings as default");
 		b720.setText("1280x720");
 		b1080.setText("1920x1080");
@@ -143,6 +143,10 @@ public class mod_MinecraftResolutions extends BaseMod
 	{
     	int iH = f.getInsets().top + f.getInsets().bottom;
     	return f.getSize().height - iH;
+	}
+
+	public void load() {
+
 	}
 	
 }
